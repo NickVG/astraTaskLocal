@@ -5,9 +5,6 @@
 #  gather_facts: false
 #  name: Install node_exporter on compose host
 #  tasks:
-- name: Ubuntu need to wait for sometime
-  ansible.builtin.pause:
-    minutes: 1
 - name: Add user node_exporter
   user:
     name: node_exporter
@@ -15,20 +12,30 @@
     system: true
     create_home: no
 
+- name: Download foo.conf
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+    dest: /tmp/node_exporter-1.3.1.linux-amd64.tar.gz
+    mode: '0666'
+
 - name: Download and extract 
   unarchive:
     src: /tmp/node_exporter-1.3.1.linux-amd64.tar.gz
     dest: /tmp
-#    remote_src: yes
+    remote_src: yes
 #    validate_certs: no
-
+- name: change file permissions
+  ansible.builtin.file:
+    path: /tmp/node_exporter-1.3.1.linux-amd64/node_exporter
+    mode: u=r,g=r,o=r
 - name: Copy bin node_exporter to /usr/local/bin
   copy:
     src: /tmp/node_exporter-1.3.1.linux-amd64/node_exporter
     dest: /usr/local/bin/
     owner: node_exporter
     group: node_exporter
-    mode: u+x,g+x,o+x    
+    mode: u+x,g+x,o+x
+    remote_src: yes    
 
 - name: Create service node_exporter.service
   blockinfile:

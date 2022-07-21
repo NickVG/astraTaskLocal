@@ -40,6 +40,10 @@
       name: ntp
       state: started
       enabled: yes
+  - name: Avoid hanging when http(s) password is missing
+    ansible.builtin.git:
+      repo: https://github.com/NickVG/astraTask.git
+      dest: /vagrant
   - name: Pause for 10 seconds to wait for docker
     ansible.builtin.pause:
       seconds: 10
