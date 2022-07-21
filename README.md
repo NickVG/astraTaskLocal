@@ -12,9 +12,11 @@
 
 `.\provisioning` - файлы необхожмые для запуска provisioning (ansible, docker-compose, prometheus, grafana)
 
-  - `inventory` - inventory ansible
-  - `main.yml` - основной плейбук ansible
-
+  - `inventory` - inventory ansible для запуска на удалённой машине
+  - `main.yml` - основной плейбук ansible для запуска на удалённой машине
+  - `inventory_local` - inventory ansible для запуска на удалённой машине
+  - `main_local.yml` - основной плейбук ansible для запуска локально
+  
 `.\provisioning\roles\node_exporter` - роль ansible Для node_exporter
 
 `.\provisioning\compose` - набор файлов для docker-compose 
