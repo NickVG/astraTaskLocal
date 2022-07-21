@@ -19,7 +19,7 @@
   unarchive:
     src: /tmp/node_exporter-1.3.1.linux-amd64.tar.gz
     dest: /tmp
-#    remote_src: yes
+    remote_src: yes
 #    validate_certs: no
 
 - name: Copy bin node_exporter to /usr/local/bin
